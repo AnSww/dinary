@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ежедневник</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <h1>Список задач</h1>
+
+    <form id="status-form" method="get">
+        <label for="status-filter">Фильтр по статусу:</label>
+        <select id="status-filter" name="status">
+            <option value="">Все статусы</option>
+            <option value="planned">Направлена в работу</option>
+            <option value="in_progress">В работе</option>
+            <option value="completed">Выполнена</option>
+        </select>
+    </form>
+
+    <!-- Контейнер для списка задач -->
+    <div id="task-list-container">
+        <ul id="task-list">
+            {% for task in tasks %}
+            <li id="task-{{ task.id }}">
+                <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
+                - {{ task.status }}
+                <a href="{% url 'task_edit' task.pk %}">Редактировать</a>
+                <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{% url 'task_create' %}">Добавить задачу</a>
+
+    <script>
+        // Функция для обновления списка задач через AJAX
+        function fetchTasks(status) {
+            $.ajax({
+                url: "{% url 'get_tasks' %}",
+                data: { 'status': status },  // Отправляем статус фильтра
+                success: function(response) {
+                    const taskList = $('#task-list');
+                    taskList.empty();  // Очищаем текущий список задач
+
+                    // Добавляем новые задачи
+                    response.tasks.forEach(function(task) {
+                        taskList.append('<li id="task-' + task.id + '">' +
+                            '<a href="/task/' + task.id + '/">' + task.title + '</a>' +
+                            ' - ' + task.status +
+                            ' <a href="/task/' + task.id + '/edit/">Редактировать</a>' +
+                            ' <a href="/task/' + task.id + '/delete/">Удалить</a>' +
+                            '</li>');
+                    });
+                }
+            });
+        }
+
+        // Обработчик события изменения фильтра
+        $('#status-filter').change(function() {
+            const status = $(this).val();
+            fetchTasks(status);  // Загружаем задачи с выбранным статусом
+        });
+
+        // Загружаем задачи при первой загрузке страницы
+        $(document).ready(function() {
+            const status = $('#status-filter').val();
+            fetchTasks(status);
+        });
+    </script>
+</body>
+</html>

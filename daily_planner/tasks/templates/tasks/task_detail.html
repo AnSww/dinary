@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробности задачи</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'detail.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ task.title }}</h1>
+        <p>{{ task.description }}</p>
+        <p>Статус: {{ task.get_status_display }}</p>
+
+        <a href="{% url 'task_edit' task.pk %}">Редактировать</a>
+        <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+        <a href="{% url 'task_list' %}">Назад</a>
+    </div>
+</body>
+</html>

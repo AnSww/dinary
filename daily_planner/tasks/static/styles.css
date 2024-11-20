@@ -1,0 +1,87 @@
+/* styles.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: white;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+select {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#task-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+#task-list li {
+    background-color: #222;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: inline-block;
+    width: 80%;
+    text-align: left;
+}
+
+#task-list a {
+    color: #ccc;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+#task-list a:hover {
+    color: white;
+}
+
+#task-list li a {
+    font-size: 18px;
+}
+
+a {
+    display: inline-block;
+    background-color: #444;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+a:hover {
+    background-color: #555;
+}
+
+/* Центрируем контейнер задач */
+#task-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 0 auto;
+}

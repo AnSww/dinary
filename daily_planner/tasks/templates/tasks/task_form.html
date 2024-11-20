@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить/Редактировать задачу</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'form.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{% if form.instance.pk %}Редактировать задачу{% else %}Добавить задачу{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Сохранить</button>
+        </form>
+        <a href="{% url 'task_list' %}">Назад</a>
+    </div>
+</body>
+</html>
